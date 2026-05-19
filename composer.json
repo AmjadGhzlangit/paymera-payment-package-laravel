@@ -1,5 +1,5 @@
 {
-  "name": "your-vendor/paymera-laravel",
+  "name": "amjad10-gm/paymera-laravel",
   "description": "Laravel package for Paymera eGate payment gateway",
   "type": "library",
   "require": {
