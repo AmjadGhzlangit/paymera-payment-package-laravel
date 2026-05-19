@@ -2,6 +2,7 @@
   "name": "amjad10-gm/paymera-laravel",
   "description": "Laravel package for Paymera eGate payment gateway",
   "type": "library",
+  "license": "MIT",
   "require": {
     "php": "^8.1",
     "illuminate/support": "^10.0|^11.0",
