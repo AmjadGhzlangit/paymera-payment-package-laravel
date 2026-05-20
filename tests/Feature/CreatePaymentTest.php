@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use YourVendor\Paymera\DTOs\CreatePaymentRequest;
-use YourVendor\Paymera\DTOs\CreatePaymentResult;
-use YourVendor\Paymera\Exceptions\PaymentFailedException;
-use YourVendor\Paymera\Exceptions\UnauthorizedException;
-use YourVendor\Paymera\PaymeraClient;
+use Casper\Paymera\DTOs\CreatePaymentRequest;
+use Casper\Paymera\DTOs\CreatePaymentResult;
+use Casper\Paymera\Exceptions\PaymentFailedException;
+use Casper\Paymera\Exceptions\UnauthorizedException;
+use Casper\Paymera\PaymeraClient;
 
 beforeEach(function () {
     $this->config = [

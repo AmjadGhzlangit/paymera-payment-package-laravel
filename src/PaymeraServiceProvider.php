@@ -1,6 +1,6 @@
 <?php
 
-namespace YourVendor\Paymera;
+namespace Casper\Paymera;
 
 use Illuminate\Support\ServiceProvider;
 

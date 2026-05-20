@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use YourVendor\Paymera\Exceptions\UnauthorizedException;
-use YourVendor\Paymera\PaymeraClient;
+use Casper\Paymera\Exceptions\UnauthorizedException;
+use Casper\Paymera\PaymeraClient;
 
 beforeEach(function () {
     $this->config = [
