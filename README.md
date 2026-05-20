@@ -3,7 +3,7 @@
 [![PHP](https://img.shields.io/badge/PHP-%5E8.1-blue)](https://www.php.net)
 [![Laravel](https://img.shields.io/badge/Laravel-10.x%20%7C%2011.x-red)](https://laravel.com)
 [![Tests](https://img.shields.io/badge/tests-9%20passed-brightgreen)](https://github.com/amjad10-gm/paymera-laravel)
-[![Packagist](https://img.shields.io/packagist/v/casper/paymera-laravel)](https://packagist.org/packages/casper/paymera-laravel)
+[![Packagist](https://img.shields.io/packagist/v/amjad-gh/paymera-payment-laravel)](https://packagist.org/packages/amjad-gh/paymera-payment-laravel)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 Laravel package for integrating with the [Paymera eGate](https://paymera.cc) payment gateway API.
@@ -20,7 +20,7 @@ Laravel package for integrating with the [Paymera eGate](https://paymera.cc) pay
 ## Installation
 
 ```bash
-composer require casper/paymera-laravel
+composer require amjad-gh/paymera-payment-laravel
 ```
 
 The service provider and facade are auto-discovered by Laravel.
