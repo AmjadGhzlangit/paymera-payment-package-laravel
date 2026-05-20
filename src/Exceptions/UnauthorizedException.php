@@ -1,6 +1,6 @@
 <?php
 
-namespace YourVendor\Paymera\Exceptions;
+namespace Casper\Paymera\Exceptions;
 
 class UnauthorizedException extends PaymeraException
 {

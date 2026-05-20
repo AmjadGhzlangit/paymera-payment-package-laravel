@@ -1,8 +1,8 @@
 <?php
 
-namespace YourVendor\Paymera\DTOs;
+namespace Casper\Paymera\DTOs;
 
-use YourVendor\Paymera\Enums\PaymentStatus;
+use Casper\Paymera\Enums\PaymentStatus;
 
 readonly class PaymentStatusResult
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace YourVendor\Paymera\Enums;
+namespace Casper\Paymera\Enums;
 
 enum PaymentStatus: string
 {

@@ -3,7 +3,7 @@
 [![PHP](https://img.shields.io/badge/PHP-%5E8.1-blue)](https://www.php.net)
 [![Laravel](https://img.shields.io/badge/Laravel-10.x%20%7C%2011.x-red)](https://laravel.com)
 [![Tests](https://img.shields.io/badge/tests-9%20passed-brightgreen)](https://github.com/amjad10-gm/paymera-laravel)
-[![Packagist](https://img.shields.io/packagist/v/amjad10-gm/paymera-laravel)](https://packagist.org/packages/amjad10-gm/paymera-laravel)
+[![Packagist](https://img.shields.io/packagist/v/casper/paymera-laravel)](https://packagist.org/packages/casper/paymera-laravel)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 Laravel package for integrating with the [Paymera eGate](https://paymera.cc) payment gateway API.
@@ -20,7 +20,7 @@ Laravel package for integrating with the [Paymera eGate](https://paymera.cc) pay
 ## Installation
 
 ```bash
-composer require amjad10-gm/paymera-laravel
+composer require casper/paymera-laravel
 ```
 
 The service provider and facade are auto-discovered by Laravel.
@@ -68,8 +68,8 @@ return [
 ### Create a Payment
 
 ```php
-use YourVendor\Paymera\Facades\Paymera;
-use YourVendor\Paymera\DTOs\CreatePaymentRequest;
+use Casper\Paymera\Facades\Paymera;
+use Casper\Paymera\DTOs\CreatePaymentRequest;
 
 $result = Paymera::createPayment(new CreatePaymentRequest(
     amount:      5000,                                  // amount in smallest currency unit
@@ -89,7 +89,7 @@ return redirect($result->redirectUrl);
 ### Get Payment Status
 
 ```php
-use YourVendor\Paymera\Facades\Paymera;
+use Casper\Paymera\Facades\Paymera;
 
 $status = Paymera::getPaymentStatus($paymentId);
 
@@ -117,7 +117,7 @@ if ($status->isCanceled()) {
 ### Cancel a Payment
 
 ```php
-use YourVendor\Paymera\Facades\Paymera;
+use Casper\Paymera\Facades\Paymera;
 
 Paymera::cancelPayment($paymentId);
 ```
@@ -173,7 +173,7 @@ Switch environments by changing `PAYMERA_BASE_URL` in your `.env`.
 ## PaymentStatus Enum
 
 ```php
-use YourVendor\Paymera\Enums\PaymentStatus;
+use Casper\Paymera\Enums\PaymentStatus;
 
 PaymentStatus::Pending  // 'P'
 PaymentStatus::Accepted // 'A'
@@ -188,9 +188,9 @@ PaymentStatus::Canceled // 'C'
 All exceptions extend `PaymeraException` which extends `RuntimeException`.
 
 ```php
-use YourVendor\Paymera\Exceptions\PaymeraException;
-use YourVendor\Paymera\Exceptions\UnauthorizedException;
-use YourVendor\Paymera\Exceptions\PaymentFailedException;
+use Casper\Paymera\Exceptions\PaymeraException;
+use Casper\Paymera\Exceptions\UnauthorizedException;
+use Casper\Paymera\Exceptions\PaymentFailedException;
 
 try {
     $result = Paymera::createPayment($request);

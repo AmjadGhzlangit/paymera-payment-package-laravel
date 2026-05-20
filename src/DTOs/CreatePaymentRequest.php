@@ -1,6 +1,6 @@
 <?php
 
-namespace YourVendor\Paymera\DTOs;
+namespace Casper\Paymera\DTOs;
 
 readonly class CreatePaymentRequest
 {

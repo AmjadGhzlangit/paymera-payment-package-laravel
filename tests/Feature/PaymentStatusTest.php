@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use YourVendor\Paymera\DTOs\PaymentStatusResult;
-use YourVendor\Paymera\Enums\PaymentStatus;
-use YourVendor\Paymera\Exceptions\PaymentFailedException;
-use YourVendor\Paymera\PaymeraClient;
+use Casper\Paymera\DTOs\PaymentStatusResult;
+use Casper\Paymera\Enums\PaymentStatus;
+use Casper\Paymera\Exceptions\PaymentFailedException;
+use Casper\Paymera\PaymeraClient;
 
 beforeEach(function () {
     $this->config = [

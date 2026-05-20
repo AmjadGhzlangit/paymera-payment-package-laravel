@@ -1,6 +1,6 @@
 <?php
 
-use YourVendor\Paymera\PaymeraServiceProvider;
+use Casper\Paymera\PaymeraServiceProvider;
 
 uses(Orchestra\Testbench\TestCase::class)->in('Feature');
 
@@ -14,6 +14,6 @@ function getPackageProviders($app): array
 function getPackageAliases($app): array
 {
     return [
-        'Paymera' => \YourVendor\Paymera\Facades\Paymera::class,
+        'Paymera' => \Casper\Paymera\Facades\Paymera::class,
     ];
 }
