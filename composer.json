@@ -1,5 +1,5 @@
 {
-  "name": "amjad10-gm/paymera-laravel",
+  "name": "casper/paymera-laravel",
   "description": "Laravel package for Paymera eGate payment gateway",
   "type": "library",
   "license": "MIT",
@@ -14,21 +14,21 @@
   },
   "autoload": {
     "psr-4": {
-      "YourVendor\\Paymera\\": "src/"
+      "Casper\\Paymera\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "YourVendor\\Paymera\\Tests\\": "tests/"
+      "Casper\\Paymera\\Tests\\": "tests/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "YourVendor\\Paymera\\PaymeraServiceProvider"
+        "Casper\\Paymera\\PaymeraServiceProvider"
       ],
       "aliases": {
-        "Paymera": "YourVendor\\Paymera\\Facades\\Paymera"
+        "Paymera": "Casper\\Paymera\\Facades\\Paymera"
       }
     }
   },
