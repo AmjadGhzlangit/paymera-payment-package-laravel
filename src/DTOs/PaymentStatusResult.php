@@ -8,10 +8,10 @@ readonly class PaymentStatusResult
 {
     private function __construct(
         public PaymentStatus $status,
-        public string $rrn,
+        public string|null $rrn,
         public int $amount,
-        public string $terminalId,
-        public string $creationTimestamp,
+        public string|null $terminalId,
+        public string|null $creationTimestamp,
         public string|null $notes,
     ) {}
 
@@ -19,10 +19,10 @@ readonly class PaymentStatusResult
     {
         return new self(
             status:            PaymentStatus::from($data['status']),
-            rrn:               $data['rrn'],
+            rrn:               $data['rrn'] ?? null,
             amount:            (int) $data['amount'],
-            terminalId:        $data['terminalId'],
-            creationTimestamp: $data['creationTimestamp'],
+            terminalId:        $data['terminalId'] ?? null,
+            creationTimestamp: $data['creationTimestamp'] ?? null,
             notes:             $data['notes'] ?? null,
         );
     }
