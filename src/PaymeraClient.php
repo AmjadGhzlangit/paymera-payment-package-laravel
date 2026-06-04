@@ -24,12 +24,21 @@ class PaymeraClient
         };
     }
 
+    private function parseResponse(mixed $body): array
+    {
+        if (!is_array($body) || !array_key_exists('ErrorCode', $body)) {
+            throw new PaymeraException('Unexpected API response', 0);
+        }
+
+        return $body;
+    }
+
     public function createPayment(CreatePaymentRequest $request): CreatePaymentResult
     {
         $response = Http::withBasicAuth($this->config['username'], $this->config['password'])
             ->post($this->config['base_url'] . '/api/create-payment', $request->toArray());
 
-        $body = $response->json();
+        $body = $this->parseResponse($response->json());
 
         $this->handleErrorCode((int) $body['ErrorCode'], $body['ErrorMessage'] ?? 'Unknown error');
 
@@ -41,7 +50,7 @@ class PaymeraClient
         $response = Http::withBasicAuth($this->config['username'], $this->config['password'])
             ->get($this->config['base_url'] . '/api/get-payment-status/' . $paymentId);
 
-        $body = $response->json();
+        $body = $this->parseResponse($response->json());
 
         $this->handleErrorCode((int) $body['ErrorCode'], $body['ErrorMessage'] ?? 'Unknown error');
 
@@ -56,7 +65,7 @@ class PaymeraClient
                 'payment_id' => $paymentId,
             ]);
 
-        $body = $response->json();
+        $body = $this->parseResponse($response->json());
 
         $this->handleErrorCode((int) $body['ErrorCode'], $body['ErrorMessage'] ?? 'Unknown error');
     }

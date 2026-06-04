@@ -69,3 +69,11 @@ it('throws PaymentFailedException on ErrorCode 100', function () {
 
     $this->client->createPayment($this->request);
 })->throws(PaymentFailedException::class);
+
+it('throws PaymeraException on non-JSON response', function () {
+    Http::fake([
+        '*/api/create-payment' => Http::response('<html>Bad Gateway</html>', 502),
+    ]);
+
+    $this->client->createPayment($this->request);
+})->throws(\Casper\Paymera\Exceptions\PaymeraException::class);

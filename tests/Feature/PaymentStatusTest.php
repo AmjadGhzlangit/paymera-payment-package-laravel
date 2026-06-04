@@ -88,6 +88,52 @@ it('returns isPending() true when status is P', function () {
         ->and($result->isAccepted())->toBeFalse();
 });
 
+it('returns isFailed() true when status is F', function () {
+    Http::fake([
+        '*/api/get-payment-status/*' => Http::response([
+            'ErrorCode'    => 0,
+            'ErrorMessage' => 'Success',
+            'Data'         => [
+                'status'            => 'F',
+                'rrn'               => null,
+                'amount'            => 1000,
+                'terminalId'        => null,
+                'creationTimestamp' => null,
+                'notes'             => null,
+            ],
+        ]),
+    ]);
+
+    $result = $this->client->getPaymentStatus('pay_abc123');
+
+    expect($result->isFailed())->toBeTrue()
+        ->and($result->isAccepted())->toBeFalse()
+        ->and($result->isPending())->toBeFalse()
+        ->and($result->isCanceled())->toBeFalse();
+});
+
+it('returns isCanceled() true when status is C', function () {
+    Http::fake([
+        '*/api/get-payment-status/*' => Http::response([
+            'ErrorCode'    => 0,
+            'ErrorMessage' => 'Success',
+            'Data'         => [
+                'status'            => 'C',
+                'rrn'               => null,
+                'amount'            => 1000,
+                'terminalId'        => null,
+                'creationTimestamp' => null,
+                'notes'             => null,
+            ],
+        ]),
+    ]);
+
+    $result = $this->client->getPaymentStatus('pay_abc123');
+
+    expect($result->isCanceled())->toBeTrue()
+        ->and($result->isAccepted())->toBeFalse();
+});
+
 it('throws on ErrorCode 100', function () {
     Http::fake([
         '*/api/get-payment-status/*' => Http::response([
@@ -99,3 +145,11 @@ it('throws on ErrorCode 100', function () {
 
     $this->client->getPaymentStatus('pay_abc123');
 })->throws(PaymentFailedException::class);
+
+it('throws PaymeraException on non-JSON response', function () {
+    Http::fake([
+        '*/api/get-payment-status/*' => Http::response('<html>Bad Gateway</html>', 502),
+    ]);
+
+    $this->client->getPaymentStatus('pay_abc123');
+})->throws(\Casper\Paymera\Exceptions\PaymeraException::class);

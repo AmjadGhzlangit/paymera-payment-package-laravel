@@ -1,8 +1,7 @@
 # Paymera Laravel
 
 [![PHP](https://img.shields.io/badge/PHP-%5E8.1-blue)](https://www.php.net)
-[![Laravel](https://img.shields.io/badge/Laravel-10.x%20%7C%2011.x-red)](https://laravel.com)
-[![Tests](https://img.shields.io/badge/tests-9%20passed-brightgreen)](https://github.com/amjad10-gm/paymera-laravel)
+[![Laravel](https://img.shields.io/badge/Laravel-10.x%20%7C%2011.x%20%7C%2012.x-red)](https://laravel.com)
 [![Packagist](https://img.shields.io/packagist/v/amjad-gh/paymera-payment-laravel)](https://packagist.org/packages/amjad-gh/paymera-payment-laravel)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
@@ -13,7 +12,7 @@ Laravel package for integrating with the [Paymera eGate](https://paymera.cc) pay
 ## Requirements
 
 - PHP ^8.1
-- Laravel ^10.0 | ^11.0
+- Laravel ^10.0 | ^11.0 | ^12.0
 
 ---
 
@@ -72,12 +71,12 @@ use Casper\Paymera\Facades\Paymera;
 use Casper\Paymera\DTOs\CreatePaymentRequest;
 
 $result = Paymera::createPayment(new CreatePaymentRequest(
-    amount:      5000,                                  // amount in smallest currency unit
-    callbackURL: 'https://yourapp.com/payment/return',  // user redirect after payment
-    triggerURL:  'https://yourapp.com/payment/webhook', // server-to-server notification
+    amount:      5000,                                             // amount in smallest currency unit
+    callbackURL: 'https://yourapp.com/orders/1234/payment/return', // see note below
+    triggerURL:  'https://yourapp.com/payment/webhook',            // server-to-server notification
     terminalId:  config('paymera.terminal_id'),
     lang:        config('paymera.lang'),
-    notes:       'Order #1234',                         // optional
+    notes:       'Order #1234',                                    // optional
 ));
 
 // $result->paymentId  — unique payment identifier
@@ -85,6 +84,8 @@ $result = Paymera::createPayment(new CreatePaymentRequest(
 
 return redirect($result->redirectUrl);
 ```
+
+> **`callbackURL`** is the URL the gateway redirects the user to when they click **Cancel** or **Close** after the payment flow. Include the merchant order identifier in the URL so your landing page can identify which order is returning (e.g. `/orders/1234/payment/return`).
 
 ### Get Payment Status
 
@@ -142,7 +143,7 @@ Switch environments by changing `PAYMERA_BASE_URL` in your `.env`.
 | Parameter     | Type          | Required | Default | Description |
 |---------------|---------------|----------|---------|-------------|
 | `amount`      | `int`         | ✓        |         | Amount in smallest currency unit |
-| `callbackURL` | `string`      | ✓        |         | User redirect URL after payment |
+| `callbackURL` | `string`      | ✓        |         | URL the gateway redirects the user to when they click **Cancel** or **Close** after payment. Should include the merchant order identifier so the landing page can determine which order it belongs to (e.g. `https://yourapp.com/orders/1234/payment/return`) |
 | `triggerURL`  | `string`      | ✓        |         | Server-to-server webhook URL |
 | `terminalId`  | `string`      | ✓        |         | Your terminal ID |
 | `lang`        | `string`      | ✓        |         | Language code (e.g. `en`) |
@@ -161,11 +162,11 @@ Switch environments by changing `PAYMERA_BASE_URL` in your `.env`.
 
 | Property             | Type            | Description |
 |----------------------|-----------------|-------------|
-| `status`             | `PaymentStatus` | Enum: `Pending`, `Accepted`, `Failed`, `Canceled` |
-| `rrn`                | `string`        | Reference retrieval number |
-| `amount`             | `int`           | Payment amount |
-| `terminalId`         | `string`        | Terminal ID |
-| `creationTimestamp`  | `string`        | ISO 8601 creation time |
+| `status`             | `PaymentStatus`  | Enum: `Pending`, `Accepted`, `Failed`, `Canceled` |
+| `rrn`                | `string\|null`   | Reference retrieval number |
+| `amount`             | `int`            | Payment amount |
+| `terminalId`         | `string\|null`   | Terminal ID |
+| `creationTimestamp`  | `string\|null`   | ISO 8601 creation time |
 | `notes`              | `string\|null`   | Payment notes |
 
 ---
