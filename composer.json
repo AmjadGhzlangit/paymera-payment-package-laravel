@@ -1,5 +1,5 @@
 {
-  "name": "amjad-gh/paymera-payment-laravel",
+  "name": "amjad/paymera-payment-laravel",
   "description": "Laravel package for Paymera eGate payment gateway",
   "type": "library",
   "license": "MIT",
