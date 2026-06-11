@@ -2,7 +2,7 @@
 
 All notable changes to this package will be documented in this file.
 
-## [Unreleased]
+## [1.1.0] - 2026-06-11
 
 ### Security
 - `PaymeraClient` now rejects a non-HTTPS `base_url` at construction, preventing Basic Auth credentials from being sent in cleartext over `http://`. **Breaking:** constructing the client with an `http://` URL now throws a `PaymeraException`.
