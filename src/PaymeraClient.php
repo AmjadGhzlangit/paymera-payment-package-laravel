@@ -12,7 +12,15 @@ use Casper\Paymera\Exceptions\UnauthorizedException;
 
 class PaymeraClient
 {
-    public function __construct(private readonly array $config) {}
+    public function __construct(private readonly array $config)
+    {
+        if (! str_starts_with($this->config['base_url'] ?? '', 'https://')) {
+            throw new PaymeraException(
+                'Paymera base_url must use HTTPS; Basic Auth credentials would otherwise be sent in cleartext.',
+                0,
+            );
+        }
+    }
 
     private function handleErrorCode(int $code, string $message): void
     {
@@ -36,6 +44,8 @@ class PaymeraClient
     public function createPayment(CreatePaymentRequest $request): CreatePaymentResult
     {
         $response = Http::withBasicAuth($this->config['username'], $this->config['password'])
+            ->connectTimeout(5)
+            ->timeout(15)
             ->post($this->config['base_url'] . '/api/create-payment', $request->toArray());
 
         $body = $this->parseResponse($response->json());
@@ -48,6 +58,8 @@ class PaymeraClient
     public function getPaymentStatus(string $paymentId): PaymentStatusResult
     {
         $response = Http::withBasicAuth($this->config['username'], $this->config['password'])
+            ->connectTimeout(5)
+            ->timeout(15)
             ->get($this->config['base_url'] . '/api/get-payment-status/' . $paymentId);
 
         $body = $this->parseResponse($response->json());
@@ -60,6 +72,8 @@ class PaymeraClient
     public function cancelPayment(string $paymentId): void
     {
         $response = Http::withBasicAuth($this->config['username'], $this->config['password'])
+            ->connectTimeout(5)
+            ->timeout(15)
             ->post($this->config['base_url'] . '/api/cancel-payment', [
                 'lang'       => $this->config['lang'],
                 'payment_id' => $paymentId,
